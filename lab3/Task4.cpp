@@ -62,7 +62,7 @@ int main()
     laptopBilal.turnOn();
     laptopBilal.runProgram("Microsoft Word");
     laptopBilal.turnOff();
-
+    cout<<"\nDisplaying specs for comparison\n";
     laptopAyesha.displaySpecs("Ayesha");
     laptopBilal.displaySpecs("Bilal");
 }
