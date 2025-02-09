@@ -8,6 +8,10 @@
 # Task 4
 ![image](https://github.com/user-attachments/assets/9da5b661-9a85-4b82-b70a-fec6d31f21a9)
 ![image](https://github.com/user-attachments/assets/ac41fe35-314c-43ee-91a3-4053b2f92f9a)
+# Task 5
+![image](https://github.com/user-attachments/assets/5c75a745-83c1-49e2-8fa1-4bf27c03272d)
+![image](https://github.com/user-attachments/assets/c17d9534-7ab5-4764-81dc-2a762e85d47b)
+![image](https://github.com/user-attachments/assets/d5fa6dde-2724-4c80-92ed-f7679d4431a9)
 
 
 
