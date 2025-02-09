@@ -88,7 +88,7 @@ int main()
         cout<<"2.Update item\n";
         cout<<"3.Generate reciept\n";
         cout<<"4.Exit\n";
-        cout<<"Enter youre choice: ";
+        cout<<"Enter your choice: ";
         cin>>choice;
         switch(choice)
         {
