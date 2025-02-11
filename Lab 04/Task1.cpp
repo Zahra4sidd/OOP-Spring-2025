@@ -16,17 +16,6 @@ class Book
         price = 0.0;
         stock = new int(30);
     }
-    Book(Book& obj) //copy constructor
-    {
-        stock = new int(30); //assuming each book has a stock of 30
-        title = obj.title;
-        price = obj.price;
-    }
-    ~Book()
-    {
-        delete stock;  // Free the memory allocated for stock
-    }
-
     void updateDetails(string t,float p)
     {
         title = t;
@@ -70,8 +59,4 @@ int main()
     cout<<"Book 1\n";
     b1.updateDetails("Silent Patient",500.0);
     b1.purchaseBook();
-    Book b2(b1);
-    cout<<"Book 2\n";
-    b2.updateDetails("Harry Potter",580);
-    b2.purchaseBook();
 }
