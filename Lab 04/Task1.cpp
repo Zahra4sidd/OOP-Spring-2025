@@ -16,10 +16,17 @@ class Book
         price = 0.0;
         stock = new int(30);
     }
+    Book(Book& obj) //copy constructor
+    {
+        stock = new int(30); //assuming each book has a stock of 30
+        title = obj.title;
+        price = obj.price;
+    }
     ~Book()
     {
-        delete stock;
+        delete stock;  // Free the memory allocated for stock
     }
+
     void updateDetails(string t,float p)
     {
         title = t;
@@ -39,6 +46,7 @@ class Book
         cout<<"Book found!\n";
         cout<<"Enter quantity of books you want to purchase: ";
         cin>>quantity;
+        cin.ignore();
         if(quantity>(*stock))
         {
             cout<<"Not enough stock\n";
@@ -58,6 +66,12 @@ class Book
 int main()
 {
     Book b1;
+    cout<<"Welcome to the bookstore\n";
+    cout<<"Book 1\n";
     b1.updateDetails("Silent Patient",500.0);
     b1.purchaseBook();
+    Book b2(b1);
+    cout<<"Book 2\n";
+    b2.updateDetails("Harry Potter",580);
+    b2.purchaseBook();
 }
