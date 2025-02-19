@@ -10,6 +10,11 @@
 ![image](https://github.com/user-attachments/assets/84cec969-382d-42d6-8d22-8680ebab45d8)
 # Task6
 ![image](https://github.com/user-attachments/assets/bc9bb033-57ec-42ac-ae42-0d01274db990)
+# Task7
+![image](https://github.com/user-attachments/assets/c05dcd48-d6d0-4771-bc30-9b7135a0300f)
+
+
+
 
 
 
