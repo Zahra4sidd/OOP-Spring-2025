@@ -22,54 +22,61 @@ class Device
         }
     }
 };
-class SmartPhone : public Device
+class SmartPhone : virtual public Device
 {
     protected:
     float screenSize;
     public:
-    SmartPhone(int id,bool status,float size) : 
-    Device(id,status),screenSize(size){}
+    SmartPhone(int id,bool status,float size):Device(id,status),screenSize(size){}
     void displayDetails()
     {
         Device::displayDetails();
-        cout<<"Screen size(inches): "<<screenSize<<endl;
+        cout<<"Screen Size: "<<screenSize<<endl;
     }
 };
-class SmartWatch : public SmartPhone
+class SmartWatch : virtual public Device 
 {
     protected:
     bool heartRateMonitor;
     public:
-    SmartWatch(int id,bool status,float size,bool heartRate):
-    SmartPhone(id,status,size),heartRateMonitor(heartRate) {}
+    SmartWatch(int id,bool status,bool monitor):Device(id,status),heartRateMonitor(monitor){}
     void displayDetails()
     {
-        SmartPhone::displayDetails();
+        Device::displayDetails();
         if(heartRateMonitor)
         {
-            cout<<"Heart Rate Monitor:YES\n";
+            cout<<"Heart rate monitor: Available\n";
         }
         else
         {
-            cout<<"Heart Rate Monitor:NO\n";
-        }        
+            cout<<"Heart rate monitor: Not Available\n";
+        }
     }
 };
-class SmartWearable : public SmartWatch
+class SmartWearable : public SmartPhone,public SmartWatch
 {
-    protected:
+    private:
     int stepCounter;
     public:
-    SmartWearable(int id,bool status,float size,bool heartRate,int steps):
-    SmartWatch(id,status,size,heartRate),stepCounter(steps){}
+    SmartWearable(int id,bool status,float size,bool monitor,int steps):
+    Device(id,status),SmartPhone(id,status,size),SmartWatch(id,status,monitor),stepCounter(steps){}
     void displayDetails()
     {
-        SmartWatch::displayDetails();
-        cout<<"Step counter: "<<stepCounter<<" steps\n";
+        Device::displayDetails();
+        cout<<"Screen size: "<<screenSize<<endl;
+        if(heartRateMonitor)
+        {
+            cout<<"Heart rate monitor: Available\n";
+        }
+        else
+        {
+            cout<<"Heart rate monitor: Not Available\n";
+        }
+        cout<<"Step Counter: "<<stepCounter<<" steps\n";
     }
 };
 int main()
 {
-    SmartWearable wearable(6543,false,6.2,true,1200);
-    wearable.displayDetails();
+    SmartWearable s1(1234,true,6.2,true,1200);
+    s1.displayDetails();
 }
