@@ -23,6 +23,10 @@ class Account
             balance -= amt;
             cout<<"Withdrawed:"<<amt<<" |Balance:"<<balance<<endl;
         }
+        else
+        {
+            cout<<"Insufficient funds\n";
+        }
     }
     virtual float calcInterest()
     {
@@ -99,14 +103,16 @@ int main()
 {
     Savings savings(12345,"John Doe",1000,"Savings", 2.5, 500);
     FixedDepositAccount fixedDeposit(67890,"Jane Doe",5000,"Fixed Deposit","2025-12-31", 5.0);
+
     savings.deposit(500);
     savings.withdraw(200);
     float interest = savings.calcInterest();
     cout<<"Interest: "<<interest<<endl;
     savings.printStatement();
+
     fixedDeposit.deposit(1000);
     fixedDeposit.withdraw(500);
     fixedDeposit.printStatement();
-  
+
     return 0;
 }
