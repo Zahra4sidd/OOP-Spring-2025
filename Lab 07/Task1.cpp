@@ -14,14 +14,14 @@ class Account
     virtual void deposit(float amt)
     {
         balance += amt;
-        cout<<"Deposited:"<<amt<<" |Balance:"<<balance<<endl;
+        cout<<"Deposited:"<<amt<<" | Balance:"<<balance<<endl;
     }
     virtual void withdraw(float amt)
     {
         if(amt < balance)
         {
             balance -= amt;
-            cout<<"Withdrawed:"<<amt<<" |Balance:"<<balance<<endl;
+            cout<<"Withdrawed:"<<amt<<" | Balance:"<<balance<<endl;
         }
         else
         {
