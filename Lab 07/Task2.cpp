@@ -69,16 +69,16 @@ int main()
     Rectangle rectangle(10,10,"blue",4,6);
     Triangle triangle(20,20,"green",3,4,5,6,4);
     circle.draw();
-    cout << "Circle Area: " << circle.calcArea() << "\n";
-    cout << "Circle Perimeter: " << circle.calcPerimeter() << "\n";
+    cout<<"Circle Area: "<<circle.calcArea()<<"\n";
+    cout<<"Circle Perimeter: "<<circle.calcPerimeter()<<"\n";
 
     rectangle.draw();
-    cout << "Rectangle Area: " << rectangle.calcArea() << "\n";
-    cout << "Rectangle Perimeter: " << rectangle.calcPerimeter() << "\n";
+    cout<<"Rectangle Area: "<<rectangle.calcArea()<<"\n";
+    cout<<"Rectangle Perimeter: "<<rectangle.calcPerimeter()<<"\n";
 
     triangle.draw();
-    cout << "Triangle Area: " << triangle.calcArea() << "\n";
-    cout << "Triangle Perimeter: " << triangle.calcPerimeter() << "\n";
+    cout<<"Triangle Area: "<<triangle.calcArea()<<"\n";
+    cout<<"Triangle Perimeter: "<<triangle.calcPerimeter()<<"\n";
     //Another Approach
     /*Shape* shapes[] = {&circle,&rectangle,&triangle};
     for(int i=0;i<3;i++){
@@ -87,4 +87,5 @@ int main()
         cout<<"Perimeter: "<<shapes[i]->calcPerimeter()<<endl;
         cout<<"--------------------------------"<<endl;
     }*/
+    return 0;
 }
