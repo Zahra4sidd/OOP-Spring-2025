@@ -31,15 +31,20 @@ ostream& operator<<(ostream& os, const Currency& obj){
     return os;
 }
 int main(){
-    Currency c1(25.5), c2(76.8), c3;
-    c3 = c1 + c2;
-    cout<<"Addition: "<<c1<<" + "<<c2<<" = "<<c3<<endl;
-    c3 = c1 - c2;
-    cout<<"Subtraction: "<<c1<<" - "<<c2<<" = "<<c3<<endl;
-    cout<<"Negation: "<<c1<<" = "<<-c1<<endl;
-    c1 += c2;
-    cout<<"After c1 += c2: "<<c1<<endl;
-    c1 -= c2;
-    cout<<"After c1 -= c2: "<<c1<<endl;
+    Currency wholesale(20),retail;
+    retail = wholesale;
+    cout<<"Wholesale price: "<<wholesale<<endl;
+    cout<<"Retail price: "<<retail<<endl;
+    Currency discount(4);
+    retail -= discount;
+    cout<<"Retail price after discount: "<<retail<<endl;
+    wholesale = Currency(34);
+    cout<<"New wholesale price: "<<wholesale<<endl;
+    retail = wholesale + 10;
+    cout<<"New retail price: "<<retail<<endl;
+    Currency profit(retail - wholesale);
+    cout<<"Profit: "<<profit<<endl;
+    profit = -profit;
+    cout<<"Profit after unary minus: "<<profit<<endl;
     return 0;
 }
