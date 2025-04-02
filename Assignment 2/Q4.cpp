@@ -14,7 +14,7 @@ class User {
 protected:
     string name;
     string id;
-    string* permissions;
+    string permissions[10];
     int permissionCount;
     string email;
     int hashedPassword;
@@ -23,7 +23,6 @@ public:
     User(string n, string i, string e, string p) : 
         name(n), id(i), email(e) {
         hashedPassword = generateHash(p);
-        permissions = nullptr;
         permissionCount = 0;
     }
 
@@ -60,33 +59,23 @@ public:
     }
 
     void addPermission(string perm) {
-        string* newPerms = new string[permissionCount + 1];
-        for (int i = 0; i < permissionCount; i++) {
-            newPerms[i] = permissions[i];
+        if (permissionCount < 10) {
+            permissions[permissionCount++] = perm;
+        } else {
+            cout << "Maximum permissions reached for user " << name << endl;
         }
-        newPerms[permissionCount] = perm;
-        delete[] permissions;
-        permissions = newPerms;
-        permissionCount++;
     }
 
     string getName() { return name; }
-
-    ~User() {
-        if (permissions != nullptr) {
-            delete[] permissions;
-        }
-    }
 };
 
 class Student : public User {
 protected:
-    int* assignments;
+    int assignments[20]; 
     int assignmentCount;
 
 public:
     Student(string n, string i, string e, string p) : User(n, i, e, p) {
-        assignments = nullptr;
         assignmentCount = 0;
         addPermission("submit_assignment");
     }
@@ -103,14 +92,11 @@ public:
     }
 
     void addAssignment() {
-        int* newAssignments = new int[assignmentCount + 1];
-        for (int i = 0; i < assignmentCount; i++) {
-            newAssignments[i] = assignments[i];
+        if (assignmentCount < 20) {
+            assignments[assignmentCount++] = 0;
+        } else {
+            cout << "Maximum assignments reached for student " << name << endl;
         }
-        newAssignments[assignmentCount] = 0;
-        delete[] assignments;
-        assignments = newAssignments;
-        assignmentCount++;
     }
 
     void submitAssignment(int index) {
@@ -121,26 +107,18 @@ public:
             cout << "Invalid assignment index." << endl;
         }
     }
-
-    ~Student() {
-        if (assignments != nullptr) {
-            delete[] assignments;
-        }
-    }
 };
 
 class TA : public Student {
 protected:
-    Student** students;
+    Student* students[10]; 
     int studentCount;
-    string* projects;
+    string projects[2]; 
     int projectCount;
 
 public:
     TA(string n, string i, string e, string p) : Student(n, i, e, p) {
-        students = nullptr;
         studentCount = 0;
-        projects = nullptr;
         projectCount = 0;
         addPermission("view_projects");
         addPermission("manage_students");
@@ -162,15 +140,7 @@ public:
             cout << "Cannot add more students. TA limit reached." << endl;
             return false;
         }
-
-        Student** newStudents = new Student*[studentCount + 1];
-        for (int i = 0; i < studentCount; i++) {
-            newStudents[i] = students[i];
-        }
-        newStudents[studentCount] = student;
-        delete[] students;
-        students = newStudents;
-        studentCount++;
+        students[studentCount++] = student;
         return true;
     }
 
@@ -179,36 +149,18 @@ public:
             cout << "Cannot add more projects. TA project limit reached." << endl;
             return false;
         }
-
-        string* newProjects = new string[projectCount + 1];
-        for (int i = 0; i < projectCount; i++) {
-            newProjects[i] = projects[i];
-        }
-        newProjects[projectCount] = project;
-        delete[] projects;
-        projects = newProjects;
-        projectCount++;
+        projects[projectCount++] = project;
         return true;
-    }
-
-    ~TA() {
-        if (students != nullptr) {
-            delete[] students;
-        }
-        if (projects != nullptr) {
-            delete[] projects;
-        }
     }
 };
 
 class Professor : public User {
 protected:
-    TA** tas;
+    TA* tas[10];
     int taCount;
 
 public:
     Professor(string n, string i, string e, string p) : User(n, i, e, p) {
-        tas = nullptr;
         taCount = 0;
         addPermission("assign_projects");
         addPermission("full_lab_access");
@@ -229,19 +181,10 @@ public:
     }
 
     void addTA(TA* ta) {
-        TA** newTAs = new TA*[taCount + 1];
-        for (int i = 0; i < taCount; i++) {
-            newTAs[i] = tas[i];
-        }
-        newTAs[taCount] = ta;
-        delete[] tas;
-        tas = newTAs;
-        taCount++;
-    }
-
-    ~Professor() {
-        if (tas != nullptr) {
-            delete[] tas;
+        if (taCount < 10) {
+            tas[taCount++] = ta;
+        } else {
+            cout << "Cannot add more TAs. Professor limit reached." << endl;
         }
     }
 };
@@ -249,24 +192,12 @@ public:
 void authenticateAndPerformAction(User* user, string action, string password) {
     if (user->authenticate(password)) {
         if (user->hasPermission(action)) {
-            cout << "Authentication successful. Performing action: " << action << endl;
-            if (action == "submit_assignment") {
-                Student* s = dynamic_cast<Student*>(user);
-                if (s) {
-                    s->submitAssignment(0);
-                }
-            } else if (action == "view_projects") {
-                cout << "Viewing projects..." << endl;
-            } else if (action == "assign_projects") {
-                cout << "Assigning projects..." << endl;
-            } else if (action == "full_lab_access") {
-                user->accessLab();
-            }
+            cout << "Action " << action << " permitted for " << user->getName() << endl;
         } else {
-            cout << "User doesn't have permission for this action." << endl;
+            cout << user->getName()<<" doesn't have permission for this action\n";
         }
     } else {
-        cout << "Authentication failed. Incorrect password." << endl;
+        cout << "Authentication failed for " << user->getName() << ". Incorrect password"<<endl;
     }
 }
 
