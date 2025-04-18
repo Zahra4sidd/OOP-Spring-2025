@@ -1,109 +1,73 @@
-// Book.h
-#ifndef BOOK
-#define BOOK
-#include <string>
-using namespace std;
-class Book{
-    private:
-    string title, author, ISBN;
-    public:
-    Book(string t, string a, string i);
-    string getTitle();
-    string getAuthor();
-    string getISBN();   
-};
-class Library {
-private:
-    Book* books[100];
-    int count;
-
-public:
-    Library();
-    ~Library();
-    void addBook(Book* book);
-    void removeBook(string isbn);
-    Book* searchBook(string title);
-};
-#endif
-// Book.cpp
-#include "Book.h"
-#include <iostream>
+#include"iostream"
+#include"Book.h"
 using namespace std;
 
-Book::Book(string t, string a, string i):title(t),author(a),ISBN(i){}
-string Book::getTitle(){
-    return title;
-}
-string Book::getAuthor(){
-    return author;
-}
-string Book::getISBN(){
-    return ISBN;
-}
 
-Library::Library() {
-    count = 0;
-}
+Book::Book(string t, string a, string isbn) : title(t), author(a), isbn(isbn) {}
 
-Library::~Library() {
-    for (int i = 0; i < count; i++) {
-        delete books[i];
-    }
+string Book :: getTitle() const { return title; }
+string Book ::  getAuthor() const { return author; }
+string Book ::  getISBN() const { return isbn; }
+
+void Library :: AddBooks(Book b)
+{  if(bookCount<MAX_BOOK)
+   {  book[bookCount++] = b;
+   }else{
+     cout<<"Book can't be added!\n";
+   }
 }
 
-void Library::addBook(Book* book) {
-    if (count < 100) {
-        books[count++] = book;
-        cout << "Book added: " << book->getTitle() << endl;
-    } else {
-        cout << "Library is full!\n";
-    }
+void Library ::  Remove(string isbn)
+{ int j=0, flag = 0;
+  for(int i=0; i<bookCount; i++)
+  {  if(isbn == book[i].getISBN())
+     {  flag = 1;
+        cout<< book[i].getTitle()<<" with ISBN: "<<book[i].getISBN()<<" has been removed!\n";
+     }else{
+       book[j++] = book[i];
+     }
+  }
+  
+
+  if(flag == 0){
+     cout<<"Book with ISBN: "<<isbn<<" is not found!\n";
+  }else{
+    bookCount--;
+  }
 }
 
-void Library::removeBook(string isbn) {
-    for (int i = 0; i < count; i++) {
-        if (books[i]->getISBN() == isbn) {
-            delete books[i];
-            for (int j = i; j < count - 1; j++) {
-                books[j] = books[j + 1];
-            }
-            count--;
-            cout << "Book removed with ISBN: " << isbn << endl;
-            return;
-        }
-    }
-    cout << "Book not found with ISBN: " << isbn << endl;
+void Library ::  Search(string isbn, string title)
+{ bool flag = 0;
+  for(int i=0; i<bookCount; i++)
+  {  if(isbn == book[i].getISBN() && title == book[i].getTitle())
+     {   flag = 1;
+         cout<<"Details of the book you searched for:"<<endl;
+         cout<<"Title: "<<book[i].getTitle()<<endl;
+         cout<<"Author: "<<book[i].getAuthor()<<endl;
+         cout<<"ISBN: "<<book[i].getISBN()<<endl;
+     }
+  }
+
+  if(flag == 0){
+     cout<<"Book with ISBN: "<<isbn<<" is not found!\n";
+  }
 }
 
-Book* Library::searchBook(string title) {
-    for (int i = 0; i < count; i++) {
-        if (books[i]->getTitle() == title) {
-            return books[i];
-        }
-    }
-    return nullptr;
-}
-// main.cpp
-#include <iostream>
-#include <string>
-#include "Book.h"
-using namespace std;
+int main()
+{
+    Book b("Rock Paper Scissor","Alie","123409");
+    cout<<"Title: "<<b.getTitle()<<endl;
+    cout<<"Author: "<<b.getAuthor()<<endl;
+    cout<<"ISBN: "<<b.getISBN()<<endl;
 
-int main() {
-    Library lib;
-    lib.addBook(new Book("1984", "George Orwell", "9780451524935"));
-    lib.addBook(new Book("Brave New World", "Aldous Huxley", "9780060850524"));
+    Book b1("Rock Paper Scissor","Alie","123409"), 
+    b2("Harry Potter","JK Rowling","090807"), 
+    b3("Kite Runner","Khaled","080604");
 
-    Book* found = lib.searchBook("1984");
-    if (found) {
-        cout << "\nFound Book:\n";
-        cout << "Title: " << found->getTitle() << endl;
-        cout << "Author: " << found->getAuthor() << endl;
-        cout << "ISBN: " << found->getISBN() << endl;
-    } else {
-        cout << "Book not found.\n";
-    }
-    lib.removeBook("9780060850524");
-
+    Library l;
+    l.AddBooks(b1);  l.AddBooks(b2);  l.AddBooks(b3);
+    l.Search("090807","Harry Potter");
+    l.Remove("090807");
+    l.Search("090807","Harry Potter");
     return 0;
 }
