@@ -9,6 +9,7 @@ int main(){
         cerr<<"Error opening file\n";
         exit(0);
     }
+    cout<<"Reading data from file...\n";
     string line;
     while(getline(inFile, line)){
         if(line.empty() || line[0] == '#'){
