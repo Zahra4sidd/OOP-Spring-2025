@@ -11,7 +11,6 @@ int main(){
         cerr<<"Error opening file\n";
         exit(0);
     }
-    infile.seekg(ios::beg);
     char buffer[11] = {0};
     infile.read(buffer,10);
     cout<<buffer<<endl;
